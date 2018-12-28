@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="thoikhoabieu" />
+        <module name="TimeTable" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="thoikhoabieu" target="1.5" />
+      <module name="TimeTable" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>
