@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS `TimeTable`.`subject` (
   `room` VARCHAR(10) NOT NULL,
   `day` TINYINT(4) NOT NULL,
   `lession` TINYINT(4) NOT NULL,
+  `isExercise` BOOLEAN NOT NULL,
   `semester_id` INT NOT NULL,
   PRIMARY KEY (`subject_id`, `semester_id`),
   INDEX `fk_subject_semester_idx` (`semester_id` ASC),
