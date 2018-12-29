@@ -32,6 +32,7 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS `TimeTable`.`subject` (
   `subject_id` INT NOT NULL AUTO_INCREMENT,
   `subject_name` VARCHAR(45) NOT NULL,
+  `room` VARCHAR(10) NOT NULL,
   `day` TINYINT(4) NOT NULL,
   `lession` TINYINT(4) NOT NULL,
   `semester_id` INT NOT NULL,
