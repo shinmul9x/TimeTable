@@ -9,12 +9,15 @@ public class DbConnection {
     private Connection connection;
 
     // index of table Semester
+    public static final int semester_id = 1;
     public static final int semester_name = 2;
 
     // index of table Subject
     public static final int subject_name = 2;
-    public static final int subject_day = 3;
-    public static final int subject_lession = 4;
+    public static final int subject_room = 3;
+    public static final int subject_day = 4;
+    public static final int subject_lession = 5;
+    public static final int subject_isExercise = 6;
 
     public DbConnection(String user, String pass, String db, String url) throws SQLException, ClassNotFoundException {
         this.user = user;
@@ -73,7 +76,7 @@ public class DbConnection {
      * @param semesterName semester's name
      */
     public void insertSemester(String semesterName) {
-        String query = "INSERT INTO semesmer(semester_name) VALUE(?)";
+        String query = "INSERT INTO semester(semester_name) VALUE(?)";
         try {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, semesterName);
@@ -117,10 +120,10 @@ public class DbConnection {
             ResultSet result = statement.executeQuery();
             while (result.next()) {
                 String name = result.getString(subject_name);
-                String room = "";
+                String room = result.getString(subject_room);
                 int day = result.getInt(subject_day);
                 int lession = result.getInt(subject_lession);
-                boolean isExercise = false;
+                boolean isExercise = result.getBoolean(subject_isExercise);
 
                 boolean isExists = false;
                 for (Subject subject : subjects) {
@@ -147,11 +150,35 @@ public class DbConnection {
      * @param name
      * @param room
      * @param day
-     * @param lession
+     * @param lessions
      * @param isExercise
+     * @param semester semester's name
      */
-    public void insertSubject(String name, String room, int day, ArrayList<Integer> lession, boolean isExercise) {
-        //TODO:
+    public void insertSubject(String name, String room, int day, ArrayList<Integer> lessions, boolean isExercise, String semester) {
+        String query1 = "SELECT * FROM semester WHERE semester_name = ?";
+        String query2 = "INSERT INTO subject(subject_name, room, day, lession, isExercise, semester_id) VALUE(?,?,?,?,?,?)";
+        try {
+            PreparedStatement statement = connection.prepareStatement(query1);
+            statement.setString(1, semester);
+            ResultSet result = statement.executeQuery();
+            if (!result.next()) {
+                return;
+            }
+            int semesterId = result.getInt(semester_id);
+            statement = connection.prepareStatement(query2);
+            for (Integer lession : lessions) {
+                statement.setString(1, name);
+                statement.setString(2, room);
+                statement.setInt(3, day);
+                statement.setInt(4, lession);
+                statement.setBoolean(5, isExercise);
+                statement.setInt(6, semesterId);
+                statement.execute();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("ERROR insertSubject");
+        }
     }
 
     /**

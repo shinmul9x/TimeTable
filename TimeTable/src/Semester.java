@@ -23,6 +23,6 @@ public class Semester {
     }
 
     public String toString() {
-        return id + " " + name;
+        return name;
     }
 }

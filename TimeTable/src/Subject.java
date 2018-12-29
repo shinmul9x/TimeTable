@@ -65,6 +65,6 @@ public class Subject {
 
     @Override
     public String toString() {
-        return name + " " + day + " " + firstlession + " " + lastlession + " " + isExercise;
+        return name + " " + room + " " + day + " " + firstlession + " " + lastlession + " " + isExercise;
     }
 }

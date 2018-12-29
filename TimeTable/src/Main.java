@@ -9,13 +9,19 @@ public class Main {
         String url = "jdbc:mysql://127.0.0.2:3306/";
 
         DbConnection con = new DbConnection(user, pass, db, url);
+        //con.insertSemester("hkii 2017-2018");
         ArrayList<Semester> semesters =  con.getSemesters();
-        for(int i = 0; i < semesters.size(); ++i) {
-            System.out.println(semesters.get(i).toString());
+        for(Semester semester : semesters) {
+            System.out.println(semester.toString());
         }
+        ArrayList<Integer> lessions = new ArrayList<Integer>();
+        lessions.add(8);
+        lessions.add(9);
+        lessions.add(10);
+        con.insertSubject("the duc", "san bai", 2, lessions, false, semesters.get(0).getName());
         ArrayList<Subject> subjects = con.getSubjects(semesters.get(0).getName());
-        for(int i = 0; i < subjects.size(); ++i) {
-            System.out.println(subjects.get(i).toString());
+        for(Subject subject : subjects) {
+            System.out.println(subject.toString());
         }
         con.DisconnectDb();
     }
